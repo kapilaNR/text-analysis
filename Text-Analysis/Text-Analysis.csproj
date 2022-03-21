@@ -32,6 +32,15 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Domain\TextAnalyser.cs" />
+    <Compile Include="Util\Constant.cs" />
+    <Compile Include="Domain\Helper.cs" />
+    <Compile Include="Domain\Report.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Domain\" />
+    <Folder Include="Util\" />
+    <Folder Include="Input\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
