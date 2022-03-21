@@ -87,15 +87,20 @@ namespace TextAnalysis.Domain
 
         public void GetSummaryReport(char character, string word)
         {
+            TableBuilder table = new TableBuilder();
             IDictionary<string, Report> reports = GetComparison(character, word);
-            Console.WriteLine("| File | CharacterOccurence | WordOccurence | WordCount | NumberOfCharacters | NumberOfLines |");
+            table.PrintLine();
+            table.PrintRow("File", "CharacterOccurence", "WordOccurence", "WordCount", "NumberOfCharacters", "NumberOfLines");
+            table.PrintLine();
             foreach (var item in reports)
             {
-                Console.WriteLine("| {0} | {1} | {2} | {3} | {4} | {5} |", item.Key, item.Value.CharacterOccurence, item.Value.WordOccurence, item.Value.WordCount,
-                    item.Value.NumberOfCharacters, item.Value.NumberOfLines);
-                Console.WriteLine("______________________________");
+
+                table.PrintRow(item.Key, item.Value.CharacterOccurence.ToString(),
+                    item.Value.WordOccurence.ToString(), item.Value.WordCount.ToString(),
+                    item.Value.NumberOfCharacters.ToString(), item.Value.NumberOfLines.ToString());
             }
-            
+            table.PrintLine();
+
         }
         #endregion
     }
