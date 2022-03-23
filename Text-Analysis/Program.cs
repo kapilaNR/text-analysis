@@ -7,20 +7,58 @@ namespace TextAnalysis
     {
         public static void Main(string[] args)
         {
-            TextAnalyser ts = new TextAnalyser();
-            //string text = "I am a student.But I am cute.";
-            //Console.WriteLine(ts.CountNumberOfWords(text));
-            //Console.WriteLine(ts.CountWordOccurence(text, "am"));
-            //Console.WriteLine(ts.CountCharacterOccurence(text, 'a'));
-            //Console.WriteLine(ts.CountNumberOfCharacters(text));
-            ts.GetCharacterOccurence('i');
-            ts.GetWordOccurence("in");
-            ts.GetNumberOfLines();
-            ts.GetNumberOfWords();
-            ts.GetNumberOfCharacters();
-            ts.GetSummaryReport('i', "in");
-            //ts.LoadFiles();
 
+            Menu menu = new Menu();
+
+            string file = menu.GetFileMenu();
+            TextAnalyser ts = new TextAnalyser(file);
+
+            menu.GetMenu();
+            int option = 0;
+            do
+            {
+                Console.Write("Option :");
+                option = Convert.ToInt32(Console.ReadLine());
+
+                if (option == 1)
+                {
+                    Console.Write("Enter word :");
+                    string word = Console.ReadLine();
+                    ts.GetWordOccurence(word);
+                }
+                    
+                if (option == 2)
+                {
+                    Console.Write("Enter charater :");
+                    char character = Convert.ToChar(Console.ReadLine());
+                    ts.GetCharacterOccurence(character);
+                }
+                if (option == 3)
+                {
+                    ts.GetNumberOfLines();
+                }
+                if (option == 4)
+                {
+                    ts.GetNumberOfWords();
+                }
+                if (option == 5)
+                {
+                    ts.GetMostUsedWord();
+                }
+                if (option == 6)
+                {
+                    ts.GetLongWord();
+                }
+                if (option == 7)
+                {
+                    Console.Write("Enter word :");
+                    string input1 = Console.ReadLine();
+                    Console.Write("Enter charater :");
+                    char input2 = Convert.ToChar(Console.ReadLine());
+                    ts.GetSummaryReport(input2, input1);
+                }     
+                
+            } while (option != 8);           
         }
     }
 }

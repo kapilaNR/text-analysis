@@ -2,17 +2,19 @@
 using TextAnalysis.Util;
 using System.Linq;
 using System.IO;
+using System.Collections.Generic;
 
 namespace TextAnalysis.Domain
 {
     public class Helper
     {
+        #region(constructor)
         public Helper()
         {
         }
+        #endregion
 
-        Constant constant = new Constant();
-
+        #region(method)
         public int CountWordOccurence(String text, String term)
         {
             //Convert the string into an array of words  
@@ -30,13 +32,44 @@ namespace TextAnalysis.Domain
 
         public int CountCharacterOccurence(String text, char character)
         {
-            int freq = text.Count(f => (f == character));
+            int freq = text.ToLowerInvariant().Count(f => (f == character));
             return freq;
         }
 
-        public int CountNumberOfLines(string fileName)
+        public string GetLongestWord(string[] words)
         {
-            return 0;
+            //string[] words = GetSplitArray(text);
+            string longestWord = "";
+            int size = 0;
+            foreach(string word in words)
+            {
+                int currentSize = CountNumberOfCharacters(word);
+                if (size < currentSize)
+                {
+                    size = currentSize;
+                    longestWord = word;
+                }
+            }
+            
+            return longestWord;
+        }
+
+        public string GetLongestWord(List<string> words)
+        {
+            //string[] words = GetSplitArray(text);
+            string longestWord = "";
+            int size = 0;
+            foreach (string word in words)
+            {
+                int currentSize = CountNumberOfCharacters(word);
+                if (size < currentSize)
+                {
+                    size = currentSize;
+                    longestWord = word;
+                }
+            }
+
+            return longestWord;
         }
 
         public int CountNumberOfWords(String text)
@@ -57,7 +90,7 @@ namespace TextAnalysis.Domain
 
         private string[] GetSplitArray(String text)
         {
-            string[] reslts = text.Split(constant.GetEscapeCharacters(), StringSplitOptions.RemoveEmptyEntries);
+            string[] reslts = text.Split(Constant.escapeCharacters, StringSplitOptions.RemoveEmptyEntries);
             return reslts;
         }
 
@@ -79,7 +112,7 @@ namespace TextAnalysis.Domain
                         break;
                     case "characters":
                         count = count + CountNumberOfCharacters(text);
-                        break;
+                        break;                   
 
                 }
 
@@ -117,5 +150,53 @@ namespace TextAnalysis.Domain
             return CharacterCount;
 
         }
+
+        public string FindLogestWord(string fileName)
+        {
+            String filePath = Directory.GetCurrentDirectory() + "/Input/" + fileName;
+            StreamReader streamReader = new StreamReader(filePath);
+            
+            List<string> filterdWords = new List<string>();
+            while (!streamReader.EndOfStream)
+            {
+                String text = streamReader.ReadLine();
+                filterdWords.Add(GetLongestWord(GetSplitArray(text)));
+            }
+            return GetLongestWord(filterdWords);
+        }
+
+        public string FindFreqWord(string fileName)
+        {
+            String filePath = Directory.GetCurrentDirectory() + "/Input/" + fileName;
+            StreamReader streamReader = new StreamReader(filePath);
+
+            IDictionary<string, int> wordOccurences = new Dictionary<string, int>();
+
+            while (!streamReader.EndOfStream)
+            {
+                String text = streamReader.ReadLine();
+                wordOccurences = UpdateWordDictionary(GetSplitArray(text), wordOccurences);
+            }
+            wordOccurences.FirstOrDefault(x => x.Value == wordOccurences.Values.Max()) ;
+            return wordOccurences.FirstOrDefault(x => x.Value == wordOccurences.Values.Max()).Key;
+        }
+
+        public IDictionary<string, int> UpdateWordDictionary(string[] wordArray, IDictionary<string, int> wordOccurences)
+        {
+            foreach(string word in wordArray)
+            {
+                if (wordOccurences.ContainsKey(word))
+                {
+                    wordOccurences[word] = wordOccurences[word]+1;
+                }
+                else
+                {
+                    wordOccurences.Add(word, 1);
+                }
+                
+            }
+            return wordOccurences;
+        }
+        #endregion
     }
 }

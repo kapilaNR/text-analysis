@@ -3,12 +3,15 @@ namespace TextAnalysis.Domain
 {
     public class TableBuilder
     {
+        #region(Constructor)
         public TableBuilder()
         {
         }
+        #endregion
 
         static int tableWidth = 175;
 
+        #region(methods)
         public void PrintLine()
         {
             Console.WriteLine(new string('-', tableWidth));
@@ -40,5 +43,6 @@ namespace TextAnalysis.Domain
                 return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
             }
         }
+        #endregion
     }
 }

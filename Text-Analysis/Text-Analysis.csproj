@@ -37,6 +37,7 @@
     <Compile Include="Domain\Helper.cs" />
     <Compile Include="Domain\Report.cs" />
     <Compile Include="Domain\TableBuilder.cs" />
+    <Compile Include="Domain\Menu.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />

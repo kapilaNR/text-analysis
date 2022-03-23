@@ -3,9 +3,11 @@ namespace TextAnalysis.Domain
 {
     public class Report
     {
+        #region(constructor)
         public Report()
         {
         }
+        #endregion
 
         #region(feilds)
         private int wordCount;
@@ -13,6 +15,8 @@ namespace TextAnalysis.Domain
         private int wordOccurence;
         private int numberOfLines;
         private int numberOfCharacters;
+        private string mostUsedWord;
+        private string longestWord;
         #endregion
 
         #region(properties)
@@ -73,6 +77,30 @@ namespace TextAnalysis.Domain
             set
             {
                 numberOfCharacters = value;
+            }
+        }
+
+        public string MostUsedWord
+        {
+            get
+            {
+                return mostUsedWord;
+            }
+            set
+            {
+                mostUsedWord = value;
+            }
+        }
+
+        public string LongestWord
+        {
+            get
+            {
+                return longestWord;
+            }
+            set
+            {
+                longestWord = value;
             }
         }
         #endregion
