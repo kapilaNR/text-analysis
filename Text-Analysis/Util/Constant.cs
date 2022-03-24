@@ -6,6 +6,7 @@ namespace TextAnalysis.Util
 
         public static char[] escapeCharacters = new char[] { '.', '?', '!', ' ', ';', ':', ',' , ' ' };
         public static string[] inputFileNames = new string[] { "Text1.txt", "Text2.txt", "Text3.txt", "Text4.txt" };
+        public static char[] alphabet = new char[] { 'a', 'b', 'c', 'd' ,'e','f','g','h','i','j','k','l','m','n','o','p','q','r','t','s','u','v','w','x','y','z'};
 
         public const string Text1 = "Text1.txt";
         public const string Text2 = "Text2.txt";

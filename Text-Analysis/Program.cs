@@ -9,8 +9,8 @@ namespace TextAnalysis
         {
 
             Menu menu = new Menu();
-
             string file = menu.GetFileMenu();
+
             TextAnalyser ts = new TextAnalyser(file);
 
             menu.GetMenu();

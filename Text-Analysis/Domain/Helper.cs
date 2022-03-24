@@ -90,8 +90,26 @@ namespace TextAnalysis.Domain
 
         private string[] GetSplitArray(String text)
         {
-            string[] reslts = text.Split(Constant.escapeCharacters, StringSplitOptions.RemoveEmptyEntries);
-            return reslts;
+            List<string> words = new List<string>() ;
+            string wordLine = text.ToLowerInvariant();
+            string word="";
+            for (int i =0; wordLine.Length > i; i++)
+            {
+                if (Constant.alphabet.Contains(wordLine[i]))
+                {
+                    word = word + wordLine[i];
+                }
+                else
+                {
+                    if(word.Length>0)
+                        words.Add(word);
+
+                    word = "";
+                }
+            }
+
+            //string[] reslts = text.Split(Constant.escapeCharacters, StringSplitOptions.RemoveEmptyEntries);
+            return words.ToArray();
         }
 
         public int Analyzer(string option, string fileName)
