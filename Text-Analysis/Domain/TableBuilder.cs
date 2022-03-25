@@ -12,11 +12,14 @@ namespace TextAnalysis.Domain
         static int tableWidth = 175;
 
         #region(methods)
+
+        //Print a '-' characters with defined lenght in console
         public void PrintLine()
         {
             Console.WriteLine(new string('-', tableWidth));
         }
 
+        //Print a table raw 
         public void PrintRow(params string[] columns)
         {
             int width = (tableWidth - columns.Length) / columns.Length;
@@ -30,6 +33,7 @@ namespace TextAnalysis.Domain
             Console.WriteLine(row);
         }
 
+        //Alight text in the raw
         public string AlignCentre(string text, int width)
         {
             text = text.Length > width ? text.Substring(0, width - 3) + "..." : text;

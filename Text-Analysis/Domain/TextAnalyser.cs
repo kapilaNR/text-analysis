@@ -17,6 +17,7 @@ namespace TextAnalysis.Domain
         #region(Constructor)
         public TextAnalyser(string fileName)
         {
+            //Set the file name
             this.fileName = fileName;
             helper = new Helper();
         }
@@ -24,6 +25,7 @@ namespace TextAnalysis.Domain
         
 
         #region(Methods)
+        //Print matching word occureces for given term 
         public void GetWordOccurence(String term)
         {
             if(!fileName.Equals(null) )
@@ -31,6 +33,7 @@ namespace TextAnalysis.Domain
 
         }
 
+        //Print the matching character count for given character
         public void GetCharacterOccurence(char character)
         {
             if (!fileName.Equals(null))
@@ -38,14 +41,14 @@ namespace TextAnalysis.Domain
 
         }
 
+        //Print number of lines
         public void GetNumberOfLines()
         {
             if (!fileName.Equals(null))
                 Console.WriteLine("{0} has {1} lines.", fileName, helper.Analyzer("lines", fileName));
-
-
         }
 
+        //Print number of words
         public void GetNumberOfWords()
         {
             if (!fileName.Equals(null))
@@ -53,6 +56,7 @@ namespace TextAnalysis.Domain
 
         }
 
+        //Print number of characters
         public void GetNumberOfCharacters()
         {
             if (!fileName.Equals(null))
@@ -60,6 +64,7 @@ namespace TextAnalysis.Domain
 
         }
 
+        //Print Logest Word
         public void GetLongWord()
         {
             if (!fileName.Equals(null))
@@ -67,6 +72,7 @@ namespace TextAnalysis.Domain
 
         }
 
+        //Print Most used word
         public void GetMostUsedWord()
         {
             if (!fileName.Equals(null))
@@ -74,6 +80,7 @@ namespace TextAnalysis.Domain
 
         }
 
+        //Build Summanry report
         private IDictionary<string, Report> GetComparison(char character, string word)
         {
             IDictionary<string, Report> reports = new Dictionary<string, Report>();
@@ -81,6 +88,7 @@ namespace TextAnalysis.Domain
             if (!word.Equals(Constant.escapeCharacters))
                 foreach (var fileName in fileNames)
                 {
+                    //Create new report object & Set values to report object
                     Report report = new Report();
                     report.CharacterOccurence = helper.Analyzer("CharacterOccurence", fileName, character);
                     report.WordOccurence = helper.Analyzer("WordOccurence", fileName, word);
@@ -89,6 +97,7 @@ namespace TextAnalysis.Domain
                     report.WordCount = helper.Analyzer("words", fileName);
                     report.LongestWord = helper.FindLogestWord(fileName);
                     report.MostUsedWord = helper.FindFreqWord(fileName);
+                    //Add report object to repors dictionary
                     reports.Add(fileName, report);
                 }
 
@@ -96,6 +105,7 @@ namespace TextAnalysis.Domain
 
         }
 
+        //Print summary report
         public void GetSummaryReport(char character, string word)
         {
             TableBuilder table = new TableBuilder();
