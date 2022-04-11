@@ -44,7 +44,8 @@ namespace TextAnalysis.Domain
             menuItems.Add(5, Constant.mostFreqWord);
             menuItems.Add(6, Constant.longestWord);
             menuItems.Add(7, Constant.getAnalysis);
-            menuItems.Add(8, Constant.exit);
+            menuItems.Add(8, Constant.getFileList);
+            menuItems.Add(9, Constant.exit);
         }
 
         //Print 100 lenght horizontal line in console
@@ -62,10 +63,10 @@ namespace TextAnalysis.Domain
         //Set file name to fileName dictonary
         private void SetFileMenu()
         {
-            fileItems.Add(1, Constant.Text1);
-            fileItems.Add(2, Constant.Text2);
-            fileItems.Add(3, Constant.Text3);
-            fileItems.Add(4, Constant.Text4);
+            fileItems.Add(1, Constant.text1);
+            fileItems.Add(2, Constant.text2);
+            fileItems.Add(3, Constant.text3);
+            fileItems.Add(4, Constant.text4);
         }
 
         //Print Menu for file names in the fileItem dictionary and collect user filename input option
@@ -79,7 +80,18 @@ namespace TextAnalysis.Domain
             }
             AddLine();
             Console.Write("Enter file Option :");
-            int fileKey = Convert.ToInt32(Console.ReadLine());
+            int fileKey;
+            try
+            {
+                fileKey = Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.Write("Invalid input Please.Please enter again.");
+                Console.Write("Enter file Option :");
+                fileKey = Convert.ToInt32(Console.ReadLine());
+            }
+            
             return fileItems[fileKey];
         }
         #endregion

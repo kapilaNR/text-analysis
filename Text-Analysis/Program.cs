@@ -7,6 +7,11 @@ namespace TextAnalysis
     {
         public static void Main(string[] args)
         {
+            mainMenu();
+        }
+
+        public static void mainMenu()
+        {
             //Create menu class object
             Menu menu = new Menu();
 
@@ -26,7 +31,17 @@ namespace TextAnalysis
             do
             {
                 Console.Write("Option :");
-                option = Convert.ToInt32(Console.ReadLine());
+                try
+                {
+                    option = Convert.ToInt32(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.Write("Invalid input Please.Please enter again.");
+                    Console.Write("Option :");
+                    option = Convert.ToInt32(Console.ReadLine());
+                }
+
 
                 if (option == 1)
                 {
@@ -36,7 +51,7 @@ namespace TextAnalysis
 
                     //Call word matching method
                     ts.GetWordOccurence(word);
-                }                   
+                }
                 if (option == 2)
                 {
                     //Get character for search
@@ -78,10 +93,14 @@ namespace TextAnalysis
 
                     //Call Summary report method
                     ts.GetSummaryReport(input2, input1);
-                }     
-                
-            } while (option != 8);
-            
+                }
+                if(option == 8)
+                {
+                    //Recursion used for redirect to main menu
+                    mainMenu();
+                }
+
+            } while (option != 9);
         }
     }
 }
