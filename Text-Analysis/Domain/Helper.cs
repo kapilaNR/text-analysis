@@ -30,15 +30,16 @@ namespace TextAnalysis.Domain
             return wordCount;
         }
 
+        //Return Count number of characters in given text
         public int CountCharacterOccurence(String text, char character)
         {
             int freq = text.ToLowerInvariant().Count(f => (f == character));
             return freq;
         }
 
+        //Return longest word in given string array
         public string GetLongestWord(string[] words)
-        {
-            //string[] words = GetSplitArray(text);
+        {           
             string longestWord = "";
             int size = 0;
             foreach(string word in words)
@@ -54,9 +55,10 @@ namespace TextAnalysis.Domain
             return longestWord;
         }
 
+        //Return logest word in given string word list. This is a method overloading.
         public string GetLongestWord(List<string> words)
         {
-            //string[] words = GetSplitArray(text);
+            
             string longestWord = "";
             int size = 0;
             foreach (string word in words)
@@ -72,12 +74,14 @@ namespace TextAnalysis.Domain
             return longestWord;
         }
 
+        //Return count of word in the string
         public int CountNumberOfWords(String text)
         {
             string[] reslts = GetSplitArray(text);
             return reslts.Length;
         }
 
+        //Return count of charaters in the string
         public int CountNumberOfCharacters(String text)
         {
             int count = 0;
@@ -88,12 +92,32 @@ namespace TextAnalysis.Domain
             return count;
         }
 
+        //Return splitted word array in given text.
         private string[] GetSplitArray(String text)
         {
-            string[] reslts = text.Split(Constant.escapeCharacters, StringSplitOptions.RemoveEmptyEntries);
-            return reslts;
+            List<string> words = new List<string>() ;
+            string wordLine = text.ToLowerInvariant();
+            string word="";
+            for (int i =0; wordLine.Length > i; i++)
+            {
+                //Check character is equal to alphabet letter
+                if (Constant.alphabet.Contains(wordLine[i]))
+                {
+                    word = word + wordLine[i];
+                }
+                else
+                {
+                    //Add string to words array if next charater is not a letter
+                    if(word.Length>0)
+                        words.Add(word);
+
+                    word = "";
+                }
+            }
+            return words.ToArray();
         }
 
+        //Return word count, character count based on the option and file name
         public int Analyzer(string option, string fileName)
         {
             int count = 0;
@@ -120,6 +144,7 @@ namespace TextAnalysis.Domain
             return count;
         }
 
+        //Return word occurence count using given file and given word
         public int Analyzer(string option, string fileName, string term)
         {
 
@@ -136,6 +161,7 @@ namespace TextAnalysis.Domain
 
         }
 
+        //Return character occurenece using given file and character
         public int Analyzer(string option, string fileName, char term)
         {
             int CharacterCount = 0;
@@ -151,6 +177,7 @@ namespace TextAnalysis.Domain
 
         }
 
+        //Return lonest word in the file
         public string FindLogestWord(string fileName)
         {
             String filePath = Directory.GetCurrentDirectory() + "/Input/" + fileName;
@@ -165,6 +192,7 @@ namespace TextAnalysis.Domain
             return GetLongestWord(filterdWords);
         }
 
+        //Return most frequently used word in the file
         public string FindFreqWord(string fileName)
         {
             String filePath = Directory.GetCurrentDirectory() + "/Input/" + fileName;
@@ -181,7 +209,8 @@ namespace TextAnalysis.Domain
             return wordOccurences.FirstOrDefault(x => x.Value == wordOccurences.Values.Max()).Key;
         }
 
-        public IDictionary<string, int> UpdateWordDictionary(string[] wordArray, IDictionary<string, int> wordOccurences)
+        //Return dictionary with word as a key and occurence count as a value
+        private IDictionary<string, int> UpdateWordDictionary(string[] wordArray, IDictionary<string, int> wordOccurences)
         {
             foreach(string word in wordArray)
             {
